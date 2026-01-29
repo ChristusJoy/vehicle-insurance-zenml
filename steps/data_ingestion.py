@@ -10,7 +10,6 @@ from constant import COLLECTION_NAME
 logger = get_logger(__name__)
 
 
-# Step-specific parameters (UPDATED)
 class DataIngestionParameters(BaseModel):
     """Parameters for MongoDB data ingestion."""
     collection_name: str = COLLECTION_NAME
