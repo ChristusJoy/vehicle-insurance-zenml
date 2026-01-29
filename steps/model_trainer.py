@@ -1,3 +1,8 @@
+# ZenML step for training the machine learning model.
+# Trains a Random Forest classifier with SMOTEENN for class imbalance.
+
+"""Balances classes with SMOTEENN and trains a RandomForest classifier."""
+
 import numpy as np
 from zenml import step, ArtifactConfig
 from zenml.logger import get_logger

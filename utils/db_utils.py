@@ -1,3 +1,8 @@
+# Utility functions and classes for database interactions.
+# Handles MongoDB connection and data retrieval.
+
+"""MongoDB client utilities to export collections into Pandas DataFrames."""
+
 import os
 import logging
 import pandas as pd

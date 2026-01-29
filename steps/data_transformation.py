@@ -1,3 +1,8 @@
+# ZenML step for data preprocessing and feature engineering.
+# Handles scaling, encoding, and other data transformations.
+
+"""Applies pandas fixes and sklearn preprocessing to features and labels."""
+
 import pandas as pd
 import numpy as np
 from typing import Tuple, List

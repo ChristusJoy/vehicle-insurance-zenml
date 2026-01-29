@@ -1,3 +1,8 @@
+# ZenML step for ingesting data from MongoDB.
+# Reads data from the specified collection and returns a DataFrame.
+
+"""Loads data from MongoDB into a Pandas DataFrame via ZenML step."""
+
 import pandas as pd
 from typing_extensions import Annotated
 from pydantic import BaseModel

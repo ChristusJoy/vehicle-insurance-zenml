@@ -1,3 +1,6 @@
+# Initializes the steps package and exposes step functions.
+"""Aggregates step functions and parameter schemas for the pipeline."""
+
 from .data_ingestion import ingest_data, DataIngestionParameters
 from .data_splitter import split_data, DataSplitterParameters
 from .data_transformation import data_transformation, DataTransformationParameters

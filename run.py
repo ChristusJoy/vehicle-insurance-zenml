@@ -1,3 +1,8 @@
+# Entry point for executing the ZenML training pipeline.
+# Configures parameters and triggers the pipeline execution.
+
+"""Entry point to run the ZenML training pipeline with defaults."""
+
 from pipeline.training_pipeline import training_pipeline
 from steps.data_ingestion import DataIngestionParameters
 from steps.data_splitter import DataSplitterParameters

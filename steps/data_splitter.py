@@ -1,3 +1,8 @@
+# ZenML step for splitting data into training and testing sets.
+# Uses sklearn's train_test_split to divide the dataset.
+
+"""Splits dataset into train/test sets based on the target column."""
+
 from typing import Tuple
 import pandas as pd
 from typing_extensions import Annotated

@@ -1,3 +1,8 @@
+# ZenML step for evaluating the trained model.
+# Calculates metrics like ROC AUC, precision, recall, and confusion matrix.
+
+"""Evaluates the trained model: ROC-AUC, precision, recall, confusion matrix."""
+
 import numpy as np
 from typing import Tuple
 from typing_extensions import Annotated

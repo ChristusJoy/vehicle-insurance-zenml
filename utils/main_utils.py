@@ -1,3 +1,8 @@
+# Utility functions for general data processing tasks.
+# Includes helper functions for mapping columns, creating dummies, etc.
+
+"""General data utilities: mapping, dummy creation, renaming, and ID drop."""
+
 import pandas as pd
 from typing import List, Union
 import logging

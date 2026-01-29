@@ -1,3 +1,8 @@
+# Defines the ZenML training pipeline connecting all steps.
+# Orchestrates data ingestion, splitting, transformation, training, and evaluation.
+
+"""Defines the training pipeline: ingest, split, transform, train, eval."""
+
 from zenml import pipeline
 from zenml.logger import get_logger
 
