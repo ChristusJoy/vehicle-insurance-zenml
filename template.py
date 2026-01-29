@@ -8,6 +8,7 @@ project_name = "src"
 
 list_of_files = [
     f"./steps/data_ingestion.py",  
+    f"./steps/data_splitter.py",
     f"./steps/data_validation.py",
     f"./steps/data_transformation.py",
     f"./steps/model_trainer.py",
@@ -16,7 +17,7 @@ list_of_files = [
     f"./pipeline/training_pipeline.py",
     f"./pipeline/prediction_pipeline.py",
     f"./utils/main_utils.py",
-    "app.py",
+    "run.py",
     "requirements.txt",
     ".env"
 ]
