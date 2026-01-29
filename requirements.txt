@@ -1,0 +1,6 @@
+zenml[server]
+pandas
+numpy
+scikit-learn
+pymongo
+dotenv
