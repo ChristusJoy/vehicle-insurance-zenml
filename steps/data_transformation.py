@@ -14,10 +14,8 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler, MinMaxScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 
-from utils.main_utils import (
-    map_gender_column,
-    drop_id_column
-)
+from utils.main_utils import drop_id_column
+
 
 logger = get_logger(__name__)
 
@@ -25,7 +23,7 @@ class DataTransformationParameters(BaseModel):
     """Parameters for data transformation."""
     num_features: List[str] = ["Age", "Annual_Premium", "Vintage"]
     mm_columns: List[str] = ["Policy_Sales_Channel"]
-    cat_features: List[str] = ["Vehicle_Age", "Vehicle_Damage"]
+    cat_features: List[str] = ["Vehicle_Age", "Vehicle_Damage","Gender"]
 
 @step
 def data_transformation(
@@ -63,10 +61,8 @@ def data_transformation(
 
         logger.info("Operational metadata columns removed (if present).")
 
-        X_train = map_gender_column(X_train)
-        X_train = drop_id_column(X_train)
 
-        X_test = map_gender_column(X_test)
+        X_train = drop_id_column(X_train)
         X_test = drop_id_column(X_test)
 
         logger.info("Custom pandas transformations applied.")

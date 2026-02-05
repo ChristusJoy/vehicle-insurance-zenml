@@ -3,8 +3,9 @@
 
 """Balances classes with SMOTEENN and trains a RandomForest classifier."""
 
+from typing import Tuple
 import numpy as np
-from zenml import step, ArtifactConfig
+from zenml import step, ArtifactConfig, Model
 from zenml.logger import get_logger
 from sklearn.base import ClassifierMixin
 from sklearn.ensemble import RandomForestClassifier
@@ -19,12 +20,22 @@ class ModelTrainerParameters(BaseModel):
     n_estimators: int = 350
     random_state: int = 42
 
-@step
+@step(
+    model=Model(
+        name="vehicle_insurance_model",  
+        description="RandomForest model for vehicle insurance claim prediction",
+    )
+)
+
 def model_trainer(
     X_train: np.ndarray,
     y_train: np.ndarray,
+    preprocessor,   
     params: ModelTrainerParameters,
-) -> Annotated[ClassifierMixin, ArtifactConfig(name="model", tags=["model"])]:
+) -> Tuple[
+    Annotated[ClassifierMixin, ArtifactConfig(name="model", tags=["model"])],
+    Annotated[object, ArtifactConfig(name="preprocessor", tags=["preprocessing"])],
+]:
     """
     Model training step that handles:
     1. SMOTEENN for class imbalance
@@ -48,7 +59,7 @@ def model_trainer(
         model.fit(X_train_resampled, y_train_resampled)
         logger.info("Model training complete.")
         
-        return model
+        return model, preprocessor
         
     except Exception as e:
         logger.error(f"Error in model training: {e}")

@@ -34,9 +34,10 @@ def training_pipeline(
         y_test=y_test,
         params=transformation_params
     )
-    model = model_trainer(
+    model, trained_preprocessor = model_trainer(
         X_train=X_train_transformed,
         y_train=y_train_transformed,
+        preprocessor=preprocessor,  
         params=trainer_params
     )
     
