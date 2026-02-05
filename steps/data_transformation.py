@@ -26,7 +26,6 @@ class DataTransformationParameters(BaseModel):
     num_features: List[str] = ["Age", "Annual_Premium", "Vintage"]
     mm_columns: List[str] = ["Policy_Sales_Channel"]
     cat_features: List[str] = ["Vehicle_Age", "Vehicle_Damage"]
-    # Add other columns if needed, defaults are provided
 
 @step
 def data_transformation(
@@ -44,26 +43,40 @@ def data_transformation(
 ]:
     """
     Data transformation step that handles:
-    1. Custom pandas-based preprocessing (Gender map, drop ID)
-    2. Scikit-learn Pipeline (Scaling, OneHotEncoding)
+    1. Removal of operational metadata (batch_tag)
+    2. Custom pandas-based preprocessing
+    3. Scikit-learn preprocessing pipeline
     """
     try:
         logger.info("Starting Data Transformation...")
+        # Removing batch tag given for simulating data drift
+        METADATA_COLUMNS = ["batch_tag"]
 
-        # 1. Apply custom transformations
-        # We apply the same pandas transformations to both train and test
+        X_train = X_train.drop(
+            columns=[c for c in METADATA_COLUMNS if c in X_train.columns],
+            errors="ignore",
+        )
+        X_test = X_test.drop(
+            columns=[c for c in METADATA_COLUMNS if c in X_test.columns],
+            errors="ignore",
+        )
+
+        logger.info("Operational metadata columns removed (if present).")
+
         X_train = map_gender_column(X_train)
         X_train = drop_id_column(X_train)
 
         X_test = map_gender_column(X_test)
         X_test = drop_id_column(X_test)
-        
+
         logger.info("Custom pandas transformations applied.")
 
-        # 2. Create and Fit Preprocessor
         numeric_transformer = StandardScaler()
         min_max_scaler = MinMaxScaler()
-        one_hot_encoder = OneHotEncoder(handle_unknown="ignore", sparse_output=False)
+        one_hot_encoder = OneHotEncoder(
+            handle_unknown="ignore",
+            sparse_output=False
+        )
 
         preprocessor = ColumnTransformer(
             transformers=[
@@ -71,7 +84,7 @@ def data_transformation(
                 ("MinMaxScaler", min_max_scaler, params.mm_columns),
                 ("OneHotEncoder", one_hot_encoder, params.cat_features),
             ],
-            remainder='passthrough'
+            remainder="passthrough"
         )
 
         pipeline = Pipeline(steps=[("Preprocessor", preprocessor)])
@@ -81,7 +94,6 @@ def data_transformation(
         X_test_arr = pipeline.transform(X_test)
         logger.info("Preprocessor fit and transform complete.")
 
-        # Convert y to numpy arrays
         y_train_arr = np.array(y_train)
         y_test_arr = np.array(y_test)
 
