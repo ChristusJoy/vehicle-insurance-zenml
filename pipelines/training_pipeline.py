@@ -11,6 +11,7 @@ from steps.data_splitter import split_data, DataSplitterParameters
 from steps.data_transformation import data_transformation, DataTransformationParameters
 from steps.model_trainer import model_trainer, ModelTrainerParameters
 from steps.model_evaluation import model_evaluation
+from steps.model_promoter import promote_model
 
 logger = get_logger(__name__)
 
@@ -46,3 +47,5 @@ def training_pipeline(
         X_test=X_test_transformed,
         y_test=y_test_transformed
     )
+
+    promote_model(after=["model_evaluation"])
